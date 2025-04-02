@@ -1,3 +1,5 @@
+package com.posydon.blackjack;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;

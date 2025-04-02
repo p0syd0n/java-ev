@@ -1,3 +1,5 @@
+package com.posydon.blackjack;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -20,4 +22,9 @@ public class Card {
     public String toString() {
         return this.rank + " of " + this.suit + "s";
     }
+
+    public int getValue() {
+        return (this.rank.equals("10") || this.rank.equals("J") || this.rank.equals("Q") || this.rank.equals("K") ? 10 : (this.rank.equals("A") ? 11 : Integer.valueOf(this.rank)));
+    }
+
 }
