@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 public class Hand {
     private ArrayList<Card> content;
+    public int bet;
     public Hand(Card cards[]) {
         this.content = new ArrayList<Card>();
         for (int i  = 0; i < cards.length; i++)  {
@@ -16,8 +17,8 @@ public class Hand {
     }
 
     public Hand() {
-        Card cards[] = {};
-        this(cards);
+        //Card cards[] = {};
+        this(new Card[] {});
     }
 
     public void addCard(Card card) {

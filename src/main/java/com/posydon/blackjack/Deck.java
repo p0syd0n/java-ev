@@ -2,14 +2,17 @@ package com.posydon.blackjack;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.List;
 import java.util.Random;
+import java.util.ArrayDeque;
 
 public class Deck {
-    private ArrayList<Card> content;
-    private int amount_cards;
+    private ArrayDeque<Card> content;
+    private boolean test = false;    
     
     public Deck(int amount_subdecks) {
-        this.content = new ArrayList<Card>();
+        this.content = new ArrayDeque<Card>();
         for (int i = 0; i < amount_subdecks; i++) {
             for (String suit : Card.suits) {
                 for (String rank : Card.ranks) {
@@ -19,31 +22,49 @@ public class Deck {
         }
     }
 
-    public void addCard(Card card) {
-        this.content.add(card);
-    }
-
     public Deck() {
         this(1);
     }
 
+    public void addCard(Card card) {
+        this.content.offerLast(card);
+    }
+
+    public void setTrueTest() {
+        this.test = true;
+    }
+
+   public void shuffle() {
+        if (this.test) return;
+        List<Card> tempList = new ArrayList<Card>(this.content); // Convert Deque to List
+        Collections.shuffle(tempList); // Shuffle the List
+        this.content.clear(); // Clear the deque
+        this.content.addAll(tempList); // Put shuffled cards back
+    }
+
+
+    public int getAmountCards() {
+        return this.content.size();
+    }
+
+    public ArrayDeque<Card> getDeck() {
+        return this.content;
+    }
+
+    public Card draw() {
+        return this.content.pollLast();
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("_____" + this.content.size() + "_____");
         for (Card card : this.content) {
-            sb.append("\n").append(card.toString());
+            sb.append(card.toString()).append(",");
         }
-        sb.append("\n_____").append(this.content.size()).append("_____");
         return sb.toString();
     }
 
 
-    public void shuffle() {
-        Collections.shuffle(this.content);
-    }
 
-    public void tShuffle() {
-        Collections.shuffle(this.content, new Random(42));
-    }
+
 }
